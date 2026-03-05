@@ -1,10 +1,10 @@
 import type { UserConfig } from "@commitlint/types";
-
+import { RuleConfigSeverity, RuleConfigCondition } from "@commitlint/types";
 const Configuration: UserConfig = {
   extends: ["@commitlint/config-conventional"],
   rules: {
     "scope-enum": [
-      2,
+      RuleConfigSeverity.Error,
       "always",
       [
         "autnn",
@@ -15,9 +15,9 @@ const Configuration: UserConfig = {
         "release",
       ],
     ],
-    "scope-empty": [2, "never"],
+    "scope-empty": [RuleConfigSeverity.Error, "never"],
     "type-enum": [
-      2,
+      RuleConfigSeverity.Error,
       "always",
       [
         "build",
@@ -35,6 +35,7 @@ const Configuration: UserConfig = {
         "hotfix",
       ],
     ],
+    "header-max-length": [RuleConfigSeverity.Error, "always", 200],
   },
 };
 
