@@ -1,159 +1,105 @@
-# Turborepo starter
+# autnn
 
-This Turborepo starter is maintained by the Turborepo core team.
+`autnn` is a TypeScript monorepo (powered by Turborepo and pnpm) for building reusable libraries, templates, and tooling around the Autnn platform.  
+It includes shared configuration, utilities, and app/template packages that can be reused across projects.
 
-## Using this example
+## Getting Started
 
-Run the following command:
+### Prerequisites
+
+- Node.js `>= 18`
+- [pnpm](https://pnpm.io/) (this repo uses `pnpm@9`)
+
+### Install dependencies
 
 ```sh
-npx create-turbo@latest
+pnpm install
 ```
 
-## What's inside?
+### Run in development
 
-This Turborepo includes the following packages/apps:
+Start all apps/packages in dev mode:
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+```sh
+pnpm dev
+```
 
 ### Build
 
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+Build all apps and packages:
 
 ```sh
-cd my-turborepo
-turbo build
+pnpm build
 ```
 
-Without global `turbo`, use your package manager:
+### Lint and format
+
+Run lint across the monorepo:
 
 ```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+pnpm lint
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Format code with Prettier:
 
 ```sh
-turbo build --filter=docs
+pnpm format
 ```
 
-Without global `turbo`:
+## Project Structure
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+At a high level, this repository contains:
+
+- **Apps** – Example/demo applications for the Autnn platform.
+- **Packages** – Shared libraries, utilities, and configuration used by the apps and by external projects.
+- **Tooling** – Centralized ESLint/Prettier/TypeScript configuration, Husky hooks, and release tooling (Changesets, Turbo).
+
+Within `packages/` you will find libraries that can be published and consumed by other projects (for example, UI components or Tailwind-like utility helpers).
+
+## Using the Libraries
+
+Typical usage pattern from a consuming app or template:
+
+```ts
+// Example only: adjust import paths/names to match the actual package.
+import { someHelper } from "@autnn/some-package";
+
+const result = someHelper();
 ```
 
-### Develop
+Refer to each package’s own README (under `packages/<name>/README.md`) for detailed APIs and examples.
 
-To develop all apps and packages, run the following command:
+## Contributing
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+Contributions are welcome!
 
-```sh
-cd my-turborepo
-turbo dev
-```
+1. **Fork** the repository and create a new branch:
+   ```sh
+   git checkout -b feat/my-feature
+   ```
+2. **Install dependencies**:
+   ```sh
+   pnpm install
+   ```
+3. **Make your changes**, add or update tests where relevant.
+4. **Run checks** before opening a PR:
+   ```sh
+   pnpm lint
+   pnpm build
+   ```
+5. **Commit** using conventional commit messages (enforced by commitlint).
+6. **Open a Pull Request** with a clear description of the change and any relevant context.
 
-Without global `turbo`, use your package manager:
+## Releases
 
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+This repo uses [Changesets](https://github.com/changesets/changesets) and Turborepo for versioning and releases:
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+- Use `pnpm release:add` to create a new changeset.
+- Use `pnpm release:version` and `pnpm release:publish` as part of the release process.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+See the internal docs or CI configuration for the exact release flow.
 
-```sh
-turbo dev --filter=web
-```
+## License
 
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+The license for this project is defined in the `LICENSE` file in the repository root (or will be added there).  
+Please review that file for the full license text before using this code in production.
