@@ -15,7 +15,7 @@ const Configuration: UserConfig = {
         "release",
       ],
     ],
-    "scope-empty": [RuleConfigSeverity.Error, "always"],
+    "scope-empty": [RuleConfigSeverity.Error, "never"],
     "type-enum": [
       RuleConfigSeverity.Error,
       "always",
