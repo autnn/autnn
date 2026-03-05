@@ -1,5 +1,5 @@
 import type { UserConfig } from "@commitlint/types";
-import { RuleConfigSeverity, RuleConfigCondition } from "@commitlint/types";
+import { RuleConfigSeverity } from "@commitlint/types";
 const Configuration: UserConfig = {
   extends: ["@commitlint/config-conventional"],
   rules: {
@@ -15,7 +15,7 @@ const Configuration: UserConfig = {
         "release",
       ],
     ],
-    "scope-empty": [RuleConfigSeverity.Error, "never"],
+    "scope-empty": [RuleConfigSeverity.Error, "always"],
     "type-enum": [
       RuleConfigSeverity.Error,
       "always",
